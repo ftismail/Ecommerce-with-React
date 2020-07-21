@@ -5,15 +5,28 @@ import HomePage from './pages/home-page/homePage';
 import ShopPage from './pages/shop-page/shop';
 import SignInPage from './pages/sign-in/signin-page'
 import './app.css'
+import {auth} from './firebase/firebase.utils'
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {  }
+    this.state = { 
+      currentUser:null
+     }
+  }
+  justName = null
+  componentDidMount(){
+    this.justName = auth.onAuthStateChanged(user=>{
+      this.setState({currentUser:user})
+      console.log(user)
+    })
+  }
+  componentWillUnmount(){
+    this.justName()
   }
   render() { 
     return ( 
       <div>
-        <Header/>
+        <Header currentUser={this.state.currentUser}/>
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
