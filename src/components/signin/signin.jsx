@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FromInput from '../form-input/form-input';
 import CustomButton from '../custom-button/custom-button';
-import {signInWithGoogle} from '../../firebase/firebase.utils';
+import {signInWithGoogle,auth} from '../../firebase/firebase.utils';
 import './signin.scss'
 class SignIn extends Component {
     constructor(props) {
@@ -11,9 +11,16 @@ class SignIn extends Component {
             password:''
          }
     }
-     handelSubmit = (element)=>{
+     handelSubmit = async (element)=>{
         element.preventDefault()
-        this.setState({email:'',password:''})
+        const {email,password} = this.state
+        try {
+            await auth.signInWithEmailAndPassword(email,password)
+            this.setState({email:'',password:''})
+        } catch (error) {
+            console.error(error)
+        }
+        
     }
     handelChange = (element)=>{
         const {name,value} = element.target

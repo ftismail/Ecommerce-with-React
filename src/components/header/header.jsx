@@ -6,7 +6,7 @@ import './header.scss'
 const Header = (props) => {
     let signInOut = null
     if (props.currentUser) {
-        signInOut =  (<div className='option' onClick={()=>auth.signOut()}>Signout</div>)
+        signInOut =  (<div className='option' onClick={()=>auth.signOut()}>SIGNOUT</div>)
     } else {
         signInOut =( <Link className='option' to='/signin'>
                 SIGNIN
@@ -19,10 +19,10 @@ const Header = (props) => {
             </Link>
             <div className='options'>
             <Link className='option' to='/shop'>
-                Shop
+                SHOP
             </Link>
             <Link className='option' to='/contact'>
-                Contact
+                CONTACT
             </Link>
             {signInOut}
             </div>
